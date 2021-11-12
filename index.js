@@ -20,6 +20,7 @@ async function run() {
         const bikesCollection = database.collection("bikes");
         const ordersCollection = database.collection("orders");
         const usersCollection = database.collection("users");
+        const usersRatingsCollection = database.collection("ratings");
 
 
         //GET API for Find All Bikes
@@ -37,7 +38,7 @@ async function run() {
             res.send(cursor);
         })
 
-        // POST API for single place-order
+        // POST API for single product place-order from user
         app.post('/productDetails/placeOrder', async (req, res) => {
             const product = req.body;
             const result = await ordersCollection.insertOne(product);
@@ -52,7 +53,7 @@ async function run() {
             res.json(result);
         })
 
-        //Single users data update
+        //Single users data update for google
 
         app.put('/users', async (req, res) => {
             const user = req.body;
@@ -89,7 +90,7 @@ async function run() {
 
         })
 
-        // GET API for all data for Manage All orders
+        // GET API for all data for Manage All orders from admin
         app.get("/manageAllOrders", async (req, res) => {
             const cursor = ordersCollection.find({});
             const result = await cursor.toArray();
@@ -133,12 +134,28 @@ async function run() {
         })
 
 
-        // POST API for single insert
+        // POST API for single product insert from admin
         app.post('/addSingleProduct', async (req, res) => {
             const product = req.body;
             const result = await bikesCollection.insertOne(product);
             res.send(result)
             console.log('this is result', result);
+        })
+
+        // POST API for single insert Ratings from User
+        app.post('/addRatings', async (req, res) => {
+            const product = req.body;
+            const result = await usersRatingsCollection.insertOne(product);
+            res.send(result)
+            console.log('this is result', result);
+        })
+
+        // GET API for all Ratings form reviews by user
+        app.get("/reviews", async (req, res) => {
+            const cursor = usersRatingsCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result);
+            // console.log(result);
         })
 
         // GET API for MY Orders
