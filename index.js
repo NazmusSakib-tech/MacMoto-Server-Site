@@ -84,7 +84,7 @@ async function run() {
             let isAdmin = false;
             if (user?.role === 'admin') {
                 isAdmin = true;
-                console.log('admin', user.role)
+                
             }
             res.json({ admin: isAdmin });
 
@@ -95,7 +95,7 @@ async function run() {
             const cursor = ordersCollection.find({});
             const result = await cursor.toArray();
             res.send(result);
-            // console.log(result);
+            
         })
 
         //DELETE API for manage order
@@ -139,7 +139,7 @@ async function run() {
             const product = req.body;
             const result = await bikesCollection.insertOne(product);
             res.send(result)
-            console.log('this is result', result);
+            
         })
 
         // POST API for single insert Ratings from User
@@ -147,7 +147,7 @@ async function run() {
             const product = req.body;
             const result = await usersRatingsCollection.insertOne(product);
             res.send(result)
-            console.log('this is result', result);
+            
         })
 
         // GET API for all Ratings form reviews by user
@@ -155,7 +155,7 @@ async function run() {
             const cursor = usersRatingsCollection.find({});
             const result = await cursor.toArray();
             res.send(result);
-            // console.log(result);
+            
         })
 
         // GET API for MY Orders
@@ -164,10 +164,8 @@ async function run() {
             const query = { email: email}
             const cursor = ordersCollection.find(query);
             const orders = await cursor.toArray();
-            console.log(orders);
             res.send(orders);
             
-
         })
 
          //DELETE API
@@ -192,7 +190,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Salam From MAC MOTO')
+    res.send('Asslamualaikum this is the site of From MAC MOTO')
 })
 
 
